@@ -1,0 +1,62 @@
+1.  What’s stdint.h?
+    
+    stdint.h es una "header file" creada para satisfacer la falta de portabilidad de los "integer types" básicos.
+    Esto se logró añadiendo nuevos tipos de datos de tamaño ajustable, siendo útiles en sistemas embebidos.
+    
+2.  What’s the point of using uint8_t, uint32_t, int32_t, and uint16_t in a program?
+
+    Las tipos de datos "intX" tienen la característica de utilizar el primer bit (MSB) para manipular el signo (+/-)
+    del n° en decimal. El tamaño X del int dependerá del rango que querramos utilizar.
+    
+    En el caso de los "uintX" el primer bit no es utilizado para manipular el signo (unsigned), lo cual nos permite
+    abarcar un mayor rango de n° decimales con menor tamaño de X.
+    
+3.  How many bytes is a BYTE, a DWORD, a LONG, and a WORD, respectively?
+
+    BYTE: 1 byte
+    DWORD: 4 bytes
+    LONG: 4 bytes
+    WORD: 2 bytes
+
+4.  What (in ASCII, decimal, or hexadecimal) must the first two bytes of any BMP file be?
+    Leading bytes used to identify file formats (with high probability) are generally called "magic numbers."
+
+    Los primeros 2 bytes del Bitmap File Header deben ser Hex: 0x42 0x4D - ASCII: BM - Decimal: 66 77
+    
+5.  What’s the difference between bfSize and biSize?
+
+    bfSize: es el tamaño del archivo BMP en bytes.
+    biSize: es el tamaño del Bitmap INFO HEADER en bytes. 
+
+6.  What does it mean if biHeight is negative?
+
+    Si biHeight es negativo, el DIB se lee de arriba-abajo y la imagen comienza desde la esquina SUPERIOR izquierda.
+    Caso contrario, el DIB se lee de abajo-arriba y la imagen comienza desde la esquina INFERIOR izquierda.
+
+7.  What field in BITMAPINFOHEADER specifies the BMP’s color depth (i.e., bits per pixel)?
+
+    El campo biBitCount determina el n° de bits por pixel y el N° máximo de colores del bitmap.
+    (https://msdn.microsoft.com/en-us/library/dd183376(v=vs.85).aspx)
+
+8.  Why might fopen return NULL in lines 24 and 32 of copy.c?
+
+    La función fopen() abre un archivo en un modo específico (r - w - a).
+    Si el archivo a leerse (READ) no existe, la función devuelve un NULL.
+    
+9.  Why is the third argument to fread always 1 in our code?
+
+    El tercer argumento de la función fread() es la cantidad de archivos a leer. En nuestro caso siempre será 1.
+
+10. What value does line 65 of copy.c assign to padding if bi.biWidth is 3?
+
+    Se le asigna padding = 1. bi.biWidth es la cantidad de pixeles de la imagen = 3. C/pixel tiene 3 bytes (RGBTRIPLE).
+    Como el resultado no es multiplo de 4 se le suma un pixel a la cant. de pixeles de la imagen.
+
+11. What does fseek do?
+
+    Esta función reubica la posición de un archivo. En este caso, toma el puntero "inptr", la cantidad de bytes de "padding"
+    y se posiciona en SEEK_CUR.
+    Si se quiere cambiar la posición del puntero en referencia a su posición actual, se utiliza SEEK_CUR.
+    Si se quiere cambiar la posición del puntero en referencia a la posición del BOF, se utiliza SEEK_SET.
+    Si se quiere cambiar la posición del puntero en referencia a la posición del EOF, se utiliza SEEK_END.
+    

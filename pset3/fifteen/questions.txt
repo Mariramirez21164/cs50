@@ -1,0 +1,4 @@
+0. The framework allows N x N dimensions being N {2 to 9} 
+1. The board is represented by a matrix, a combination of 2 arrays in this case.
+2. Greet().
+3. init, draw, move and won.
