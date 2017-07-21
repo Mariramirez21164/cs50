@@ -72,9 +72,22 @@ int main(int argc, char *argv[])
         {
             // temporary storage
             RGBTRIPLE triple;
-
+            
             // read RGB triple from infile
             fread(&triple, sizeof(RGBTRIPLE), 1, inptr);
+
+            // Si el pixel es blanco(255, 255, 255) lo convierto en rojo (255, 0, 0)
+            if(triple.rgbtRed == 0xff && triple.rgbtBlue == 0xff && triple.rgbtGreen == 0xff)
+            {
+                triple.rgbtBlue = 0x00;
+                triple.rgbtGreen = 0x00;
+            }
+            // Si es rojo lo llevo a blanco 
+            else if(triple.rgbtRed == 0xff)
+            {
+                triple.rgbtBlue = 0xff;
+                triple.rgbtGreen = 0xff;
+            }
 
             // write RGB triple to outfile
             fwrite(&triple, sizeof(RGBTRIPLE), 1, outptr);
