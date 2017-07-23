@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 
-#include "jpeg.h"
+typedef uint8_t BYTE;
 
 int main (int argc, char *argv[])
 {
@@ -25,39 +26,52 @@ int main (int argc, char *argv[])
     
     // BYTE(unsigned int) array
     BYTE block [512];
+    char name[8];
 
-    int i = 0;
-    while( i < 3)
+    int k = 0;
+    int i = 0;    
+
+    do
     {
-        // Save the result of fread in k
-        int k = fread(&block, 1, 512, inptr);
+        // Read 512 blocks of size 1 byte FROM inptr and send it to &block
+        i = fread(&block, 1, 512, inptr);
         
         // JPEG signature condition
         if (block[0] == 0xff && block[1] == 0xd8 && block[2] == 0xff && (block[3] & 0xf0) == 0xe0)
         {
-                // Create asd.txt with write permission
-                FILE *outptr = fopen("asd.jpg", "w");
+            // Create variable "name" with "00k.jpg"
+            sprintf(name, "%03i.jpg", k);
+            k++;
+            // Create file "name" with write permission
+            FILE *outptr = fopen(name, "w");
             
+            // Inside this loop the image is "created"
             do
             {
-                // Write result to asd.jpg
+                // Write result to file
                 fwrite(&block, 1, 512, outptr);
-            
-                k = fread(&block, 1, 512, inptr);
                 
-            }
+                i = fread(&block, 1, 512, inptr);
+                
+                // A wild block appears!
+                if(i != 512)
+                {
+                    break;
+                }
+                
+            } // If the block red is a JPEG signature GTFO
             while (block[0] != 0xff || block[1] != 0xd8 || block[2] != 0xff || (block[3] & 0xf0) != 0xe0);
+            
+            // Close image
+            fclose(outptr);
+        
+            // IT TURNS OUT THAT YOU JUST READED THE JPEG SIGNATURE AND YOU GOTTA GET BACK SO WHEN THE LOOP STARTS
+            // AGAIN, IT RECOGNIZES THE JPEG AND CREATES THE IMAGE
+            fseek(inptr, -(512), SEEK_CUR);
+            
         }
-    
-    // Write the result to asd.txt
-//    
-    
-        // Test only
-        printf("%d\n", k);
-        printf("%d\n", block[50]);
-    
-        i++;
+        
     }
+    while (i == 512);
 
-    
 }
