@@ -59,7 +59,7 @@ int main (int argc, char *argv[])
                     break;
                 }
                 
-            } // If the block red is a JPEG signature GTFO
+            } // If the block read is a JPEG signature GTFO
             while (block[0] != 0xff || block[1] != 0xd8 || block[2] != 0xff || (block[3] & 0xf0) != 0xe0);
             
             // Close image

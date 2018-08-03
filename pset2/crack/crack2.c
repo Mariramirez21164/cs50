@@ -7,5 +7,7 @@
 
 int main (void)
 {
-    printf("%s\n", crypt("rofl", "50"));
+    string s = "hola";
+    
+    printf("%c", s[3]);
 }

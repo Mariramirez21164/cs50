@@ -45,7 +45,7 @@ int main (int argc, string argv[])
                 s[i] = s[i];
             }
         }
-        printf("Ciphertext: %s\n", s);
+        printf("ciphertext: %s\n", s);
         
     }
     else

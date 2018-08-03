@@ -8,9 +8,11 @@
 int main (int argc, string argv[])
 {
 
+    string hash = NULL;
+    
     if (argc == 2)
     {
-        string s = argv[1]; // Guardo el pass hasheado en "S"
+        hash = argv[1]; // Store hashed pass in "hash"
     }
     else
     {
@@ -18,19 +20,13 @@ int main (int argc, string argv[])
         return 1;
     }
     
+//    int salt = 50; // Already given
     
-    for (int may = 65; A < 91; A++) /*Cuenta desde A-Z*/
-    {
-        for(int min = 97; a < 123; a++) /*Cuenta desde a-z*/
-        {
-            string pass
-        }
-    
-    }
-        
+    printf("%s\n", hash);    
+
     /*  strcmp
-        Definir contadores para a y A
         Hashear cada pass con crypt()
         Comparar hash con string s
         Si es igual printf pass
+    */
 }

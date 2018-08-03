@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted
+{% endblock %}
+
+{% block main %}
+    <p class="lead">A share of {{ symb.name }} ({{ symb.symbol }}) costs <mark>{{ symb.price }}</mark>.</p>
+{% endblock %}
